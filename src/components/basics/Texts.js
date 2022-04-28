@@ -6,6 +6,12 @@ export const Text = styled.span`
     color: ${({ theme }) => theme.colors.lightBlack};
 `;
 
+export const BoldText = styled(Text)`
+    font-weight: bold;
+    color: ${({ theme }) => theme.colors.blue};
+    font-family: 'Nunito';
+`;
+
 export const SmallText = styled.span`
     font-size: 12px;
     color: ${({ theme }) => theme.colors.grey};
