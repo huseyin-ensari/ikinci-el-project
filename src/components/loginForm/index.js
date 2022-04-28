@@ -1,6 +1,7 @@
-import { useFormik } from 'formik';
 import React, { useState } from 'react';
+import { useFormik } from 'formik';
 import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 import { generateErrorMessage } from '../../constants/errorMessages';
 import { authValidation } from '../../constants/inputValidations';
 import { useAuth } from '../../contexts/authContext';
@@ -20,6 +21,7 @@ import { Card, Col, FormElement, Row } from './style';
 const LoginForm = () => {
     const { login } = useAuth();
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
@@ -36,6 +38,7 @@ const LoginForm = () => {
                 });
                 login(result);
                 setLoading(false);
+                navigate('/');
             } catch (err) {
                 const errorMessage = generateErrorMessage(err);
                 setLoading(false);
@@ -96,7 +99,10 @@ const LoginForm = () => {
                 </WideButton>
             </form>
             <Row>
-                <Text>Hesabın yok mu?</Text> <TextLink>Üye Ol</TextLink>
+                <Text>Hesabın yok mu?</Text>
+                <Link to={'/register'}>
+                    <TextLink>Üye Ol</TextLink>
+                </Link>
             </Row>
             <Toaster />
         </Card>

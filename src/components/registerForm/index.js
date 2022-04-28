@@ -16,10 +16,13 @@ import { authValidation } from '../../constants/inputValidations';
 import { useAuth } from '../../contexts/authContext';
 import { fetchRegister } from '../../services/authServices';
 import { generateErrorMessage } from '../../constants/errorMessages';
+import { Link, useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
     const { login } = useAuth();
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -37,6 +40,7 @@ const RegisterForm = () => {
                 });
                 login(result);
                 setLoading(false);
+                navigate('/');
             } catch (err) {
                 const errorMessage = generateErrorMessage(err);
                 setLoading(false);
@@ -97,7 +101,10 @@ const RegisterForm = () => {
                 </WideButton>
             </form>
             <Row>
-                <Text>Hesabın var mı?</Text> <TextLink>Giriş Yap</TextLink>
+                <Text>Hesabın var mı?</Text>
+                <Link to={'/login'}>
+                    <TextLink>Giriş Yap</TextLink>
+                </Link>
             </Row>
             <Toaster />
         </Card>
