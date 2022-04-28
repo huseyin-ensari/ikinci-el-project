@@ -20,6 +20,7 @@
     "plugins": ["react"],
     "rules": {
         "react/react-in-jsx-scope": "off",
-        "object-shorthand": ["error", "always"]
+        "object-shorthand": ["error", "always"],
+        "react/prop-types": "off"
     }
 }
