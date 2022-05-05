@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 export const Text = styled.span`
-    font-size: 15px;
+    font-size: ${({ size }) => (size ? `${size}px` : '15px')};
     height: 20px;
+    font-weight: ${({ isBold }) => (isBold ? 'bold' : '400')};
     color: ${({ theme }) => theme.colors.lightBlack};
 `;
 
@@ -18,8 +19,8 @@ export const SmallText = styled.span`
 `;
 
 export const Title = styled.span`
-    font-size: 32px;
-    font-weight: bold;
+    font-size: ${({ size }) => (size ? `${size}px` : '32px')};
+    font-weight: ${({ isNormal }) => (isNormal ? '400' : 'bold')};
     color: ${({ theme }) => theme.colors.lightBlack};
 `;
 
@@ -32,4 +33,8 @@ export const TextLink = styled.a`
         cursor: pointer;
         text-decoration: underline;
     }
+`;
+
+export const RedTextLink = styled(TextLink)`
+    color: ${({ theme }) => theme.colors.red};
 `;
