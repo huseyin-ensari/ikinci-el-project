@@ -17,6 +17,20 @@ export const WideButton = styled.button`
     }
 `;
 
+export const WideOutlineButton = styled(WideButton)`
+    background-color: ${({ theme }) => theme.colors.lightBlue};
+    color: ${({ theme }) => theme.colors.blue};
+`;
+
+export const WideOutlineOrangeButton = styled(WideOutlineButton)`
+    background-color: ${({ theme }) => theme.colors.lightOrange};
+    color: ${({ theme }) => theme.colors.orange};
+    width: 50%;
+    @media (max-width: ${({ theme }) => theme.responsive.mobile}) {
+        width: 100%;
+    }
+`;
+
 export const IconButton = styled.button`
     color: ${({ theme }) => theme.colors.blue};
     background-color: ${({ theme }) => theme.colors.lightBlue};
@@ -56,4 +70,30 @@ export const ResponsiveIconButton = styled(IconButton)`
             margin-right: 0;
         }
     }
+`;
+
+export const Button = styled.button`
+    border-radius: 8px;
+    max-height: 30px;
+    border: none;
+    outline: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    padding: 5px 20px;
+    background-color: ${({ theme }) => theme.colors.blue};
+    color: ${({ theme }) => theme.colors.white};
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.24),
+            0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    }
+    @media (max-width: ${({ theme }) => theme.responsive.mobile}) {
+    }
+`;
+
+export const RedButton = styled(Button)`
+    background-color: ${({ theme }) => theme.colors.red};
 `;
