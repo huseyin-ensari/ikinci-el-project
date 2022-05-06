@@ -1,11 +1,14 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { Loader } from '../components/basics';
 import { fetchMe } from '../services/authServices';
 
 const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
+    const [userID, setUserID] = useState();
     const [email, setEmail] = useState('');
     const [isLogged, setIsLogged] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getMe();
@@ -14,12 +17,15 @@ const AuthContextProvider = ({ children }) => {
     const getMe = async () => {
         try {
             const { data } = await fetchMe();
-            console.log('effec içindeki {data}', data);
+            setUserID(data.id);
             setEmail(data.email);
             setIsLogged(true);
+            setLoading(false);
         } catch (err) {
             setIsLogged(false);
+            setLoading(false);
             setEmail('');
+            setUserID(null);
         }
     };
 
@@ -33,8 +39,13 @@ const AuthContextProvider = ({ children }) => {
     const values = {
         login,
         email,
+        userID,
         isLogged
     };
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <AuthContext.Provider value={values}>{children}</AuthContext.Provider>
