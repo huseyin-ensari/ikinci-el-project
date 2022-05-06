@@ -12,7 +12,9 @@ const Navbar = () => {
     return (
         <Header>
             <Container>
-                <Logo height={42} width={128} />
+                <Link to={'/'}>
+                    <Logo height={42} width={128} />
+                </Link>
                 <ButtonSection>
                     {isLogged && (
                         <Link to={'/add-product'}>
