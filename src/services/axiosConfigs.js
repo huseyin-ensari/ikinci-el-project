@@ -17,5 +17,9 @@ api.interceptors.request.use(
 export const URL = {
     auth: `${baseURL}/auth`,
     products: '/products',
-    users: '/users'
+    users: '/users',
+    categories: '/categories',
+    offers: '/offers',
+    brands: '/brands',
+    colors: '/colors'
 };
