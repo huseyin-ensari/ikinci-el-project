@@ -31,7 +31,6 @@ const RegisterForm = () => {
         validationSchema: authValidation,
         onSubmit: async (values) => {
             try {
-                console.log('value -> ', values);
                 setLoading(true);
                 const result = await fetchRegister({
                     username: values.email,

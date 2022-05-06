@@ -1,5 +1,4 @@
 export const generateErrorMessage = (err) => {
-    // console.log('generateMEssage err -> ', err);
     if (
         err.response.data.message[0].messages[0].message ===
         'Identifier or password invalid.'
