@@ -1,20 +1,31 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { PrivateRoute, PublicRoute } from './constants/routerConfig';
-import { HomePage, LoginPage, RegisterPage } from './pages';
+import { IsLogged, IsNotLogged } from './constants/routerConfig';
+import {
+    AccountPage,
+    AddProductPage,
+    HomePage,
+    LoginPage,
+    ProductDetail,
+    RegisterPage
+} from './pages';
 
 const Router = () => {
     return (
         <Routes>
-            <Route path='/' element={<HomePage />} />
+            <Route index path='/' element={<HomePage />} />
             {/* public routes */}
-            <Route element={<PublicRoute />}>
+            <Route element={<IsNotLogged />}>
                 <Route path='/login' element={<LoginPage />} />
                 <Route path='/register' element={<RegisterPage />} />
             </Route>
             {/* end of public routes */}
             {/* private routes */}
-            <Route element={<PrivateRoute />}></Route>
+            <Route element={<IsLogged />}>
+                <Route path='/product/:id' element={<ProductDetail />} />
+                <Route path='/account' element={<AccountPage />} />
+                <Route path='/add-product' element={<AddProductPage />} />
+            </Route>
             {/* end of private routes */}
         </Routes>
     );
