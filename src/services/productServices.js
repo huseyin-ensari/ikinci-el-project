@@ -23,3 +23,8 @@ export const fetchMyProducts = async (userID) => {
     );
     return result;
 };
+
+export const fetchCreateProduct = async (data) => {
+    const result = await api.post(`${URL.products}`, data);
+    return result;
+};
