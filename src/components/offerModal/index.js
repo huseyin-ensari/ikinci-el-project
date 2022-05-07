@@ -56,22 +56,14 @@ const OfferModal = ({ product, image, hideModal }) => {
         setChecked40(false);
         setChecked20(false);
         setChecked30(false);
-        console.log('event -> ', e.target.value);
         setOfferPrice(e.target.value);
     };
 
     const giveOffer = async () => {
-        console.log('ürün offer -> ', offerPrice);
         const isValid = await priceValidation.isValid({ price: offerPrice });
-        console.log('isvalid___', isValid);
         if (isValid) {
             setInputError(false);
-            const { data } = await fetchGiveOffer(
-                product.id,
-                userID,
-                offerPrice
-            );
-            console.log('response offer -> ', data);
+            await fetchGiveOffer(product.id, userID, offerPrice);
             hideModal();
         } else {
             setInputError(true);

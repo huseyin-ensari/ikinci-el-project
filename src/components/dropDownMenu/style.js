@@ -7,6 +7,8 @@ export const Main = styled.div`
 export const DropDownContainer = styled.div`
     width: 100%;
     border-radius: 8px;
+    /*  */
+    position: relative;
 `;
 
 export const DropDownHeader = styled.div`
@@ -23,7 +25,13 @@ export const DropDownHeader = styled.div`
         error ? theme.colors.lightRed : '#f4f4f4'};
 `;
 
-export const DropDownListContainer = styled.div``;
+export const DropDownListContainer = styled.div`
+    position: absolute;
+    top: 40px;
+    left: 0;
+    z-index: 400;
+    width: 100%;
+`;
 
 export const DropDownList = styled.ul`
     max-height: 228px;

@@ -23,7 +23,6 @@ const BidCard = ({ bid }) => {
 
     const updateProduct = async () => {
         const { data } = await fetchOfferByID(bid.id);
-        console.log('bid response -> ', data);
         setProduct({ ...data.product });
     };
 
@@ -36,7 +35,7 @@ const BidCard = ({ bid }) => {
             <Image>
                 <img
                     src={baseURL + product?.image?.url}
-                    alt={bid.product.name}
+                    alt={product.name}
                     onError={(e) => {
                         e.currentTarget.src = imgNotFound;
                     }}
