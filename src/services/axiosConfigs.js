@@ -21,5 +21,6 @@ export const URL = {
     categories: '/categories',
     offers: '/offers',
     brands: '/brands',
-    colors: '/colors'
+    colors: '/colors',
+    statuses: '/using-statuses'
 };
