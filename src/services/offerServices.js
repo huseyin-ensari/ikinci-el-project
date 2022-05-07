@@ -4,8 +4,7 @@ export const fetchGiveOffer = async (productID, userID, offerPrice) => {
     const result = await api.post(`${URL.offers}`, {
         product: productID,
         users_permissions_user: userID,
-        offerPrice: Number(offerPrice),
-        isStatus: true
+        offerPrice: Number(offerPrice)
     });
     return result;
 };
@@ -24,5 +23,19 @@ export const fetchMyBids = async (userID) => {
 
 export const fetchOfferByID = async (offerID) => {
     const result = await api.get(`${URL.offers}/${offerID}`);
+    return result;
+};
+
+export const fetchConfirmOffer = async (offerID) => {
+    const result = await api.put(`${URL.offers}/${offerID}`, {
+        isStatus: true
+    });
+    return result;
+};
+
+export const fetchRejectOffer = async (offerID) => {
+    const result = await api.put(`${URL.offers}/${offerID}`, {
+        isStatus: false
+    });
     return result;
 };
