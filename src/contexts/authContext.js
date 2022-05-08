@@ -29,11 +29,16 @@ const AuthContextProvider = ({ children }) => {
         }
     };
 
+    const generateCookie = (token) => {
+        var expires = new Date(Date.now() + 86400 * 1000).toUTCString();
+        document.cookie = `Auth_Token=${token}; expires=" + ${expires} + ";path=/;`;
+    };
+
     const login = (response) => {
         const { user, jwt } = response.data;
         setIsLogged(true);
+        generateCookie(jwt);
         setEmail(user.email);
-        localStorage.setItem('access-token', jwt);
     };
 
     const values = {
