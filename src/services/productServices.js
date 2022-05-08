@@ -28,3 +28,8 @@ export const fetchCreateProduct = async (data) => {
     const result = await api.post(`${URL.products}`, data);
     return result;
 };
+
+export const fetchDeleteProduct = async (productID) => {
+    const result = await api.delete(`${URL.products}/${productID}`);
+    return result;
+};
