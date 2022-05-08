@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const baseURL = process.env.REACT_APP_API_BASE_URL;
+const accessToken = document.cookie.split('=')[1];
 
 export const api = axios.create({ baseURL });
 api.interceptors.request.use(
     async (config) => {
-        const accessToken = await localStorage.getItem('access-token');
         if (accessToken) {
             config.headers.authorization = `Bearer ${accessToken}`;
         }
