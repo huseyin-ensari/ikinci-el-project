@@ -4,6 +4,7 @@ import { IsLogged, IsNotLogged } from './constants/routerConfig';
 import {
     AccountPage,
     AddProductPage,
+    ErrorPage,
     HomePage,
     LoginPage,
     ProductDetail,
@@ -27,6 +28,7 @@ const Router = () => {
                 <Route path='/add-product' element={<AddProductPage />} />
             </Route>
             {/* end of private routes */}
+            <Route path='*' element={<ErrorPage />} />
         </Routes>
     );
 };
