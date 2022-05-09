@@ -64,6 +64,9 @@ export const ButtonSection = styled.div`
         button {
             width: 50%;
         }
+        a {
+            margin-left: auto;
+        }
     }
 `;
 
