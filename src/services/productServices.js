@@ -1,7 +1,8 @@
 import { URL, api } from './axiosConfigs';
-
-export const fetchProducts = async () => {
-    const result = await api.get(`${URL.products}`);
+export const fetchProducts = async (skipCount) => {
+    const result = await api.get(
+        `${URL.products}/?_limit=15&_start=${skipCount}`
+    );
     return result;
 };
 
@@ -31,5 +32,10 @@ export const fetchCreateProduct = async (data) => {
 
 export const fetchDeleteProduct = async (productID) => {
     const result = await api.delete(`${URL.products}/${productID}`);
+    return result;
+};
+
+export const fetchProductCount = async () => {
+    const result = await api.get(`${URL.products}/count`);
     return result;
 };
