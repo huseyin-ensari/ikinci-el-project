@@ -11,6 +11,9 @@ export const Card = styled.div`
     flex-direction: row;
     margin-bottom: 100px;
     @media (max-width: ${({ theme }) => theme.responsive.laptop}) {
+        /* flex-direction: column; */
+    }
+    @media (max-width: ${({ theme }) => theme.responsive.tablet}) {
         flex-direction: column;
     }
     @media (max-width: ${({ theme }) => theme.responsive.mobile}) {
@@ -29,6 +32,10 @@ export const ImagePanel = styled.div`
     }
     @media (max-width: ${({ theme }) => theme.responsive.laptop}) {
         width: 100%;
+        height: 70vh;
+    }
+    @media (max-width: ${({ theme }) => theme.responsive.tablet}) {
+        height: 60vh;
     }
     @media (max-width: ${({ theme }) => theme.responsive.mobile}) {
         height: 40vh;
@@ -40,8 +47,17 @@ export const DetailPanel = styled.div`
     padding-left: 60px;
     display: flex;
     flex-direction: column;
+    @media (max-width: ${({ theme }) => theme.responsive.laptop}) {
+        width: 50%;
+    }
+    @media (max-width: ${({ theme }) => theme.responsive.tablet}) {
+        padding-left: 0;
+        width: 100%;
+        margin-top: 20px;
+    }
     @media (max-width: ${({ theme }) => theme.responsive.mobile}) {
         padding-left: 0;
+        margin-top: 0;
         span:first-child {
             font-size: 18px;
         }
@@ -73,6 +89,12 @@ export const ButtonSection = styled.div`
     width: 480px;
     gap: 10px;
     margin-bottom: 30px;
+    @media (max-width: ${({ theme }) => theme.responsive.laptop}) {
+        width: 70%;
+        button {
+            width: 100%;
+        }
+    }
     @media (max-width: ${({ theme }) => theme.responsive.mobile}) {
         order: 4;
         margin: 0;

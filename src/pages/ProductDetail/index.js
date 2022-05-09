@@ -9,7 +9,6 @@ import {
 import Modal from '../../components/modal';
 import { imgNotFound } from '../../constants/images';
 import { useAuth } from '../../contexts/authContext';
-import { useProducts } from '../../contexts/productsContext';
 import { BasicLayout } from '../../layouts';
 import { fetchDeleteOffer } from '../../services/offerServices';
 import { fetchProductById } from '../../services/productServices';
@@ -26,7 +25,6 @@ import {
 
 const ProductDetail = () => {
     const { id } = useParams();
-    const { allProducts } = useProducts();
     const baseURL = process.env.REACT_APP_API_BASE_URL;
     const [product, setProduct] = useState({});
     const [activeOfferModal, setActiveOfferModal] = useState(false);
@@ -54,13 +52,6 @@ const ProductDetail = () => {
         await fetchDeleteOffer(bidID);
         setIsPossibleOffer(true);
     };
-
-    useEffect(() => {
-        const findedProduct = allProducts.find(
-            (findProduct) => findProduct.id === Number(id)
-        );
-        setProduct({ ...findedProduct });
-    }, [allProducts]);
 
     useEffect(() => {
         getProduct();
@@ -106,14 +97,15 @@ const ProductDetail = () => {
                                     <WideButton onClick={buyProduct}>
                                         Satın Al
                                     </WideButton>
-                                    {isPossibleOffer ? (
+                                    {isPossibleOffer && product.isOfferable && (
                                         <WideOutlineButton
                                             onClick={() =>
                                                 setActiveOfferModal(true)
                                             }>
                                             Teklif Ver
                                         </WideOutlineButton>
-                                    ) : (
+                                    )}
+                                    {!isPossibleOffer && (
                                         <WideOutlineButton
                                             onClick={deleteOffer}>
                                             Teklifi Geri Çek
