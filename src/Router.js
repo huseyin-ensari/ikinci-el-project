@@ -15,6 +15,7 @@ const Router = () => {
     return (
         <Routes>
             <Route index path='/' element={<HomePage />} />
+            <Route path='/category/:categoryID' element={<HomePage />} />
             {/* public routes */}
             <Route element={<IsNotLogged />}>
                 <Route path='/login' element={<LoginPage />} />

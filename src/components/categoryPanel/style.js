@@ -9,7 +9,7 @@ export const HorizontalMenu = styled.div`
     overflow-x: scroll;
     position: relative;
     scroll-behavior: smooth;
-    /* white-space: nowrap; */
+    white-space: nowrap;
     /* for chrome safari*/
     &::-webkit-scrollbar {
         display: none;

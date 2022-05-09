@@ -1,15 +1,16 @@
 import React, { useRef } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useProducts } from '../../contexts/productsContext';
 import { Text } from '../basics';
 import { Divider, HorizontalMenu, MenuItem } from './style';
 
 const CategoryPanel = ({ activeCategoryID, setActiveCategory }) => {
-    const denemeRef = useRef();
+    const horizontalRef = useRef();
     const { categories } = useProducts();
 
     const handleChange = (id) => {
         if (id === 'another') {
-            denemeRef.current.scrollLeft = 0;
+            horizontalRef.current.scrollLeft = 0;
             setActiveCategory('all');
         } else {
             id === 'all' ? setActiveCategory('all') : setActiveCategory(id);
@@ -17,21 +18,24 @@ const CategoryPanel = ({ activeCategoryID, setActiveCategory }) => {
     };
 
     return (
-        <HorizontalMenu ref={denemeRef}>
-            <MenuItem
-                active={activeCategoryID === 'all' ? true : false}
-                onClick={() => handleChange('all')}>
-                <Text size={18}>Hepsi</Text>
-                <Divider />
-            </MenuItem>
-            {categories?.map((category) => (
+        <HorizontalMenu ref={horizontalRef}>
+            <NavLink to={`/`}>
                 <MenuItem
-                    key={category.id}
-                    active={activeCategoryID === category.id ? true : false}
-                    onClick={() => handleChange(category.id)}>
-                    <Text size={18}>{category.name}</Text>
+                    active={activeCategoryID === 'all' ? true : false}
+                    onClick={() => handleChange('all')}>
+                    <Text size={18}>Hepsi</Text>
                     <Divider />
                 </MenuItem>
+            </NavLink>
+            {categories?.map((category) => (
+                <NavLink to={`/category/${category.id}`} key={category.id}>
+                    <MenuItem
+                        active={activeCategoryID === category.id ? true : false}
+                        onClick={() => handleChange(category.id)}>
+                        <Text size={18}>{category.name}</Text>
+                        <Divider />
+                    </MenuItem>
+                </NavLink>
             ))}
             <MenuItem
                 active={activeCategoryID === 'another' ? true : false}
