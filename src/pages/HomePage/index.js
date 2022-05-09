@@ -72,6 +72,7 @@ const HomePage = () => {
                                                     baseURL +
                                                     product?.image?.url
                                                 }
+                                                alt={product?.name}
                                                 onError={(e) => {
                                                     e.currentTarget.src =
                                                         imgNotFound;
