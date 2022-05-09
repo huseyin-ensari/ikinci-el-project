@@ -10,7 +10,7 @@ const DragAndDropFile = () => {
             <Text size={14}>Sürükleyip bırakarak yükle</Text>
             <Text size={14}>veya</Text>
             <ChoseImage>Görsel Seçin</ChoseImage>
-            <SmallText>PNG ve JPEG Dosya boyutu: max. 100kb</SmallText>
+            <SmallText>PNG ve JPEG Dosya boyutu: max. 400kb</SmallText>
         </DragAndDropContainer>
     );
 };

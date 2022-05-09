@@ -13,3 +13,5 @@ export { default as ImageUploadPanel } from './imageUploadPanel';
 export { default as ConfirmModal } from './confirmModal';
 export { default as BidCard } from './bidCard';
 export { default as OfferCard } from './offerCard';
+export { default as ProgressBar } from './progressBar';
+export { default as ShowImage } from './showImage';
