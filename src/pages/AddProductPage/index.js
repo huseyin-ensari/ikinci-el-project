@@ -4,7 +4,8 @@ import {
     Text,
     InputGrey,
     WideButton,
-    TextArea
+    TextArea,
+    Loader
 } from '../../components/basics';
 import {
     DropDownMenu,
@@ -29,11 +30,15 @@ import { useProducts } from '../../contexts/productsContext';
 import toast from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { addProductValitaon } from '../../constants/inputValidations';
-import { fetchCreateProduct } from '../../services/productServices';
 import { useAuth } from '../../contexts/authContext';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+const baseURL = process.env.REACT_APP_API_BASE_URL;
+const accessToken = document.cookie.split('=')[1];
 
 const AddProductPage = () => {
-    const { categories } = useProducts();
+    const { categories, resetPage } = useProducts();
     const [colors, setColors] = useState([]);
     const [choosedColor, setChoosedColor] = useState('Renk Seç');
     const [brands, setBrands] = useState([]);
@@ -43,65 +48,72 @@ const AddProductPage = () => {
     const [choosedState, setChoosedState] = useState('Kullanım Durumu Seç');
     const [checked, setChecked] = useState(false);
     const [inputErrors, setInputsError] = useState({});
+    const [file, setFile] = useState(null);
     const { userID } = useAuth();
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             name: '',
             description: '',
-            price: 0,
-            color: '',
-            brand: '',
-            category: '',
-            status: '',
-            isOfferable: false,
-            isSold: false,
-            users_permissions_user: ''
+            price: 0
+            // color: '',
+            // brand: '',
+            // category: '',
+            // status: '',
+            // isOfferable: false,
+            // users_permissions_user: ''
         },
         validationSchema: addProductValitaon,
-        onSubmit: async (values) => {
-            const formData = new FormData();
+        onSubmit: async (values, bag) => {
+            const data = new FormData();
 
-            // if (choosedCategory === 'Kategori Seç') {
-            //     setInputsError({ ...inputErrors, category: true });
-            //     toast.error('Kategori zorunlu bir alandır.');
-            //     return;
-            // }
-            // let choosedCategoryID = categories?.find(
-            //     (category) => category?.name === choosedCategory
-            // );
-            // bag.setFieldValue('category', choosedCategoryID.id);
+            if (choosedCategory === 'Kategori Seç') {
+                setInputsError({ ...inputErrors, category: true });
+                toast.error('Kategori zorunlu bir alandır.');
+                return;
+            }
+            let choosedCategoryID = categories?.find(
+                (category) => category?.name === choosedCategory
+            );
 
-            // if (choosedState === 'Kullanım Durumu Seç') {
-            //     toast.error('Lütfen kullanım durumu seçin.');
-            //     setInputsError({ ...inputErrors, state: true });
-            // }
-            // if (choosedBrand !== 'Marka Seç') {
-            //     bag.setFieldValue('brand', choosedBrand);
-            // }
-            // if (choosedColor !== 'Renk Seç') {
-            //     bag.setFieldValue('color', choosedColor);
-            // }
+            if (choosedState === 'Kullanım Durumu Seç') {
+                toast.error('Lütfen kullanım durumu seçin.');
+                setInputsError({ ...inputErrors, state: true });
+            }
 
-            // await bag.setFieldValue('status', choosedState);
-            // bag.setFieldValue('category', choosedCategoryID.id);
-            // bag.setFieldValue('users_permissions_user', userID);
-            let data = {
-                name: 'Bi Değişik Gömlek',
-                description:
-                    'Düğmelerinden 2 tanesi yok, kol düğmesi de olmayabilir :)',
-                category: '2',
-                brand: 'Kigili',
-                color: 'Mavi',
-                status: 'Az Kullanıldı',
-                price: 0,
-                isOfferable: true,
+            bag.setFieldValue('status', choosedState);
+            const productData = {
+                name: values.name,
+                description: values.description,
+                category: choosedCategoryID.id,
+                brand: choosedBrand === 'Marka Seç' ? '' : choosedBrand,
+                color: choosedColor === 'Renk Seç' ? '' : choosedColor,
+                status: choosedState,
+                price: values.price,
+                isOfferable: checked,
                 isSold: false,
-                users_permissions_user: '438'
+                users_permissions_user: userID
             };
-            console.log('values', values);
-            formData.append('data', JSON.stringify(data));
-            const response = await fetchCreateProduct(formData);
-            console.log('resposne ', response);
+            if (!file) {
+                toast.error('Fotoğraf yüklemek zorunludur.');
+                return;
+            }
+            setLoading(true);
+            data.append('files.image', file);
+            data.append('data', JSON.stringify(productData));
+            const response = await axios.post(`${baseURL}/products`, data, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            if (response) {
+                resetPage(response.data);
+                setLoading(false);
+                navigate('/login');
+            }
         }
     });
 
@@ -143,7 +155,10 @@ const AddProductPage = () => {
                                     onChange={formik.handleChange}
                                     value={formik.values.name}
                                     placeholder='Ürün Adı'
-                                    error={formik.errors.name}
+                                    error={
+                                        formik.errors.name &&
+                                        formik.touched.name
+                                    }
                                 />
                                 <Text>Açıklama</Text>
                                 <TextArea
@@ -151,7 +166,10 @@ const AddProductPage = () => {
                                     name='description'
                                     onChange={formik.handleChange}
                                     value={formik.values.description}
-                                    error={formik.errors.description}
+                                    error={
+                                        formik.errors.description &&
+                                        formik.touched.description
+                                    }
                                     placeholder='Ürün açıklaması girin'
                                 />
                                 <TwoInput>
@@ -200,7 +218,10 @@ const AddProductPage = () => {
                                     name='price'
                                     onChange={formik.handleChange}
                                     value={formik.values.price}
-                                    error={formik.errors.price}
+                                    error={
+                                        formik.errors.price &&
+                                        formik.touched.price
+                                    }
                                     placeholder='Bir fiyat girin'
                                 />
                                 <ToggleSwitch
@@ -211,9 +232,11 @@ const AddProductPage = () => {
                             </DetailPanel>
                             {/* --------------------------------------- */}
                             <VerticalDivider />
-                            <ImageUploadPanel />
+                            <ImageUploadPanel setFile={setFile} />
                         </Panels>
-                        <WideButton type='submit'>Kaydet</WideButton>
+                        <WideButton type='submit'>
+                            {loading ? <Loader /> : 'Kaydet'}
+                        </WideButton>
                     </Card>
                 </form>
             </Container>
