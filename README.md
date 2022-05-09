@@ -42,3 +42,5 @@ REACT_APP_API_BASE_URL=https://bootcamp.akbolat.net
 | Desktop | Mobile |
 |-----------------------|--------------------|
 | ![homepage](./forReadme/fullscreen.webp) | ![mhomepage](./forReadme/mobile_homepage.webp) |
+
+![localhost-lighthouse](./forReadme/lighthouse_localhost.webp)
