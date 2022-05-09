@@ -1,5 +1,7 @@
 ## İkinci El Project (Second Hand Project)
 
+The place where users sell the products they use. Users who see this can bid and buy.
+
 <!-- prettier-ignore -->
 | TECHNOLOGY | STYLE | LINTERS | DEPLOY | DESIGN | BACKEND |
 |--|--|--|--|--|--|
