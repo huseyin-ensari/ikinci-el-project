@@ -68,11 +68,7 @@ const LoginForm = () => {
                         value={formik.values.email}
                         name='email'
                         type='email'
-                        error={
-                            formik.touched.email && formik.errors.email
-                                ? true
-                                : false
-                        }
+                        error={formik.touched.email && formik.errors.email}
                     />
                 </FormElement>
                 <FormElement helper>
@@ -86,8 +82,6 @@ const LoginForm = () => {
                         placeholder='Password'
                         error={
                             formik.touched.password && formik.errors.password
-                                ? true
-                                : false
                         }
                     />
                     <SmallText>Şifremi Unuttum</SmallText>
